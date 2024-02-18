@@ -1,7 +1,9 @@
 import { Router } from 'express';
-// import { sessionRoutes } from './session.routes';
+import { userRoutes } from './user.routes';
+import { transactionRoutes } from './transaction.routes';
 
 const router = Router();
 
-// router.use('/school', schoolRoutes);
+router.use('/user', userRoutes);
+router.use('/transaction', transactionRoutes);
 export { router };
