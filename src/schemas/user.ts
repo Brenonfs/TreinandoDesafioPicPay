@@ -29,11 +29,10 @@ export const userCreateSchema = z.object({
       invalid_type_error: 'O  campo "password" tem caracteres inválidos',
     })
     .min(3, { message: 'O campo "password" está muito pequeno' }),
-  balance: z
-    .number({
-      invalid_type_error: 'O campo "balance" tem caracteres inválidos',
-    })
-    .nullable(),
+  balance: z.number({
+    required_error: 'O  campo "balance" está vazio',
+    invalid_type_error: 'O  campo "balance" tem caracteres inválidos',
+  }),
   userType: z
     .string({
       required_error: 'O campo "userType" está vazio',

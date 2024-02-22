@@ -16,7 +16,7 @@ model User {
   email             String        @unique
   password          String
   cpf               String        @unique
-  balance           Float?
+  balance           Float
   userType          String
   payerTransactions Transaction[] @relation("Payer")
   payeeTransactions Transaction[] @relation("Payee")

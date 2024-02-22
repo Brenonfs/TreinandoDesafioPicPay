@@ -8,14 +8,13 @@ import { UnauthorizedError } from '../helpers/api-erros';
 declare module 'express-serve-static-core' {
   // eslint-disable-next-line @typescript-eslint/naming-convention
   interface Request {
-    school?: {
+    user?: {
       id: number;
     };
   }
 }
 const ensureAuth = async (req: Request, res: Response, next: NextFunction) => {
   const authHeader = req.headers.authorization;
-
   if (!authHeader) {
     return next();
   }
@@ -25,7 +24,7 @@ const ensureAuth = async (req: Request, res: Response, next: NextFunction) => {
   try {
     if (jwtConfig && jwtConfig.secret !== undefined) {
       const decodedToken = verify(token, jwtConfig.secret) as { sub: string };
-      req.school = {
+      req.user = {
         id: Number(decodedToken.sub),
       };
       return next();

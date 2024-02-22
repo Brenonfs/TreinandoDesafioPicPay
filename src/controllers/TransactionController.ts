@@ -24,14 +24,14 @@ export class TransactionController {
       throw new BadRequestError(`Não foi possível fazer a transição.`);
     }
 
-    const transaction = await this.createTransactionService.execute(
+    const result = await this.createTransactionService.execute(
       validatedtransactionSchema.data.payer,
       validatedtransactionSchema.data.payee,
       validatedtransactionSchema.data.value,
     );
 
     return res.json({
-      transaction,
+      result,
     });
   };
 
@@ -53,7 +53,6 @@ export class TransactionController {
       throw new UnauthorizedError('Usuário não está autenticado.');
     }
     const transactionId = +req.params.id;
-
     const result = await this.viewTransactionService.execute(userId, transactionId);
     return res.json({
       result,

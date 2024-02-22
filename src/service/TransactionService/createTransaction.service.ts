@@ -21,14 +21,13 @@ class CreateTransactionService {
     if (!payeeExists) {
       throw new BadRequestError(`O logista não está cadastrada.`);
     }
-    if (payeeExists.userType === 'merchant') {
-      throw new BadRequestError(`Lojista não pode efetuar pagamento.`);
+    if (payerExists.userType === 'merchant') {
+      throw new BadRequestError(`Lojista não pode efetuar pagamento.`); // verificar
     }
     if (value > payerExists.balance) {
-      throw new BadRequestError(`Saldo insuficiente.`);
+      throw new BadRequestError(`Saldo insuficiente.`); // verificar
     }
     const autorization = await axios.get(`https://run.mocky.io/v3/5794d450-d2e2-4412-8131-73d0293ac1cc`);
-    console.log(autorization.data);
     if (autorization.data.message !== 'Autorizado') {
       throw new UnauthorizedError(`Transição não autorizada.`);
     }
@@ -56,7 +55,6 @@ class CreateTransactionService {
       throw new NotFoundError(`Não foi possível atualizar o lojista com essas especificações.`);
     }
     const notification = await axios.get(`https://run.mocky.io/v3/54dc2cf1-3add-45b5-b5a9-6bf7e7f1f4a6`);
-    console.log(notification.data);
     let message;
     if (notification.data.message !== true) {
       message = `sistema de notificação fora do ar`;

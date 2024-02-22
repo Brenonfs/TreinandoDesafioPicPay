@@ -3,11 +3,11 @@ import { prisma } from '../database';
 
 export class UserRepository {
   // users = [];
-  async saveUser(name: string, email: string, cpf: string, password: string, balance: number | null, userType: string) {
+  async saveUser(name: string, email: string, cpf: string, password: string, balance: number, userType: string) {
     const hashedPassword = await hash(password, 8);
     const user = await prisma.user.create({
-      data: { name, email, password: hashedPassword, balance, userType },
-      select: { name: true, email: true, cpf: true, balance: true, userType: true },
+      data: { name, email, cpf, password: hashedPassword, balance, userType },
+      select: { id: true, name: true, email: true, cpf: true, balance: true, userType: true },
     });
 
     return user;
