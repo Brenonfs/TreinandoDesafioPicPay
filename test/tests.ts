@@ -81,7 +81,7 @@ describe('Test User', () => {
       throw new Error('User Create ERROR: ');
     }
     const secondUser = user.users[1];
-    expect(secondUser.response.text).toContain('Este email ou CPF ja está em uso.');
+    expect(secondUser.response.body.message).toEqual('Este email ou CPF ja está em uso.');
     expect(secondUser.response.statusCode).toEqual(400);
   }, 10000);
   it('Error criar user com mesmo email ', async () => {
@@ -90,7 +90,7 @@ describe('Test User', () => {
       throw new Error('User Create ERROR: ');
     }
     const secondUser = user.users[1];
-    expect(secondUser.response.text).toContain('Este email ou CPF ja está em uso.');
+    expect(secondUser.response.body.message).toEqual('Este email ou CPF ja está em uso.');
     expect(secondUser.response.statusCode).toEqual(400);
   }, 10000);
 });
@@ -114,7 +114,7 @@ describe('Test Transaction', () => {
       throw new Error('Transaction Create ERROR: ');
     }
     const firstTransaction = result.transactions[0];
-    expect(firstTransaction.response.text).toContain('Saldo insuficiente.');
+    expect(firstTransaction.response.body.message).toEqual('Saldo insuficiente.');
     expect(firstTransaction.response.statusCode).toEqual(400);
   }, 10000);
   it('Error Trasanção Lojista não pode efetuar compra ', async () => {
@@ -123,7 +123,7 @@ describe('Test Transaction', () => {
       throw new Error('Transaction Create ERROR: ');
     }
     const firstTransaction = result.transactions[0];
-    expect(firstTransaction.response.text).toContain('Lojista não pode efetuar pagamento.');
+    expect(firstTransaction.response.body.message).toEqual('Lojista não pode efetuar pagamento.');
     expect(firstTransaction.response.statusCode).toEqual(400);
   }, 10000);
   it('list Transaction with Payer ', async () => {
